@@ -8,4 +8,4 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 
-app.listen(port, () => console.log(`App server listening on port: ${port}!`))
+app.listen(port, () => console.log(`App server listening on port: ${port}!`));
