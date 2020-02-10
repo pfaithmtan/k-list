@@ -95,12 +95,13 @@ export default function SignUpSide() {
       {/* comment out above line */}
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <img src="https://cdn0.iconfinder.com/data/icons/love-and-romance-vol-3/48/105-512.png" alt="" height="40px" width="40px" />
+          <Link href="/">
+            <img src="https://cdn0.iconfinder.com/data/icons/love-and-romance-vol-3/48/105-512.png" alt="" height="40px" width="40px" />
+          </Link>
           <Typography component="h1" variant="h5">
             Sign up for a new account
           </Typography>
           <form className={classes.form} noValidate>
-            {/* <Grid container spacing={5}> */}
             <TextField
               autoComplete="fname"
               name="firstName"
@@ -195,7 +196,6 @@ export default function SignUpSide() {
             <Box mt={5}>
               <Copyright />
             </Box>
-            {/* </Grid> */}
           </form>
         </div>
       </Grid>
