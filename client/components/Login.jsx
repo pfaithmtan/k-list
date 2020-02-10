@@ -55,7 +55,9 @@ export default function SignUp() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <Link href="/">
+            <LockOutlinedIcon />
+          </Link>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up for a new account
