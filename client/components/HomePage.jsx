@@ -7,30 +7,36 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
-function Copyright() {
+function DevelopedBy() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      {' 𝄞 Developed by '}
+      <Link color="inherit" href="https://github.com/pfaithmtan">
         Faith Tan
       </Link>
-      {' '}
+      {' 𝄢♪♫♩♬ '}
       {new Date().getFullYear()}
       .
     </Typography>
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
+
+const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
     padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
@@ -39,6 +45,7 @@ const useStyles = makeStyles(theme => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
+    backgroundColor: theme.palette.background.default,
   },
   card: {
     height: '100%',
@@ -52,16 +59,18 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   footer: {
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.default,
     padding: theme.spacing(6),
+    backgroundColor:
+      theme.palette.type === 'dark' ? theme.palette.background.paper : theme.palette.background.paper,
   },
 }));
 
-export default function Homepage() {
+export default function HomePage() {
   const classes = useStyles();
 
   return (
-    <>
+    <MuiThemeProvider theme={darkTheme}>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
@@ -103,7 +112,9 @@ export default function Homepage() {
             </div>
           </Container>
         </div>
-        {/* <Container className={classes.cardGrid} maxWidth="md" /> */}
+        <Container className={classes.cardGrid} maxWidth="md">
+          <img src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fe3%2F22%2Fdb%2Fe322db3ad04ed97760e5fa1b238803ed.png&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F508414245419688919%2F&tbnid=mz7OrQDKpC3wdM&vet=12ahUKEwjV99v0l8rnAhUOtJ4KHQc0DJ0QMygdegQIARBm..i&docid=d3BR_iEa6fvvbM&w=256&h=500&q=dalmatian%20101&ved=2ahUKEwjV99v0l8rnAhUOtJ4KHQc0DJ0QMygdegQIARBm" alt="background" />
+        </Container>
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
@@ -113,9 +124,9 @@ export default function Homepage() {
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           Something here to give the footer a purpose!
         </Typography>
-        <Copyright />
+        <DevelopedBy />
       </footer>
       {/* End footer */}
-    </>
+    </MuiThemeProvider>
   );
 }
