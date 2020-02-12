@@ -18,7 +18,7 @@ const createUser = (req, res) => {
       res.status(200).send(`Successfully saved ${data} in db!`);
     })
     .catch((error) => {
-      res.status(500).send(`There has been an error: ${error}`);
+      res.status(500).send(`Error saving user to db: ${error}`);
     });
 };
 
@@ -30,11 +30,24 @@ const findUserById = (req, res) => {
       res.status(200).send(`Successfully found data: ${data}`);
     })
     .catch((error) => {
-      res.status(500).send(`There has been an error: ${error}`);
+      res.status(500).send(`Error finding user by id: ${error}`);
+    });
+};
+
+const verifyUser = (req, res) => {
+  const { email } = req.body;
+
+  db.User.findOne({ where: { email } })
+    .then((data) => {
+      res.status(200).send(`User confirmed via email: ${data}`);
+    })
+    .catch((error) => {
+      res.status(500).send(`Error verifying user: ${error}`);
     });
 };
 
 module.exports = {
   createUser,
   findUserById,
+  verifyUser,
 };
