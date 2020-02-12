@@ -40,12 +40,6 @@ User.init({
 
 sequelize.sync();
 
-// User.sync({ force: true }).then(() => (
-//   // Now the `users` table in the database corresponds to the model definition
-//   User.create({
-//     firstName: 'John',
-//     lastName: 'Hancock',
-//     email: 'hi@hello.com',
-//     password: 'starwars',
-//   })
-// ));
+module.exports = {
+  User,
+};
