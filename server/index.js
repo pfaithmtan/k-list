@@ -14,6 +14,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-app.post('/api/users', controller.postUser);
+app.post('/api/users', controller.createUser);
 
 app.listen(port, () => console.log(`App server listening on port: ${port}!`));
