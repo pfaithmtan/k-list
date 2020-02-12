@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-const sequelize = new Sequelize('database', 'root', '', {
+const sequelize = new Sequelize('database', '', '', {
   host: 'localhost',
   dialect: 'postgres',
 });
@@ -14,7 +14,7 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
-class User extends Model {}
+class User extends Model { }
 
 User.init({
   firstName: {
@@ -34,7 +34,18 @@ User.init({
     allowNull: false,
   },
 }, {
-  // Other model options go here
-  sequelize, // We need to pass the connection instance
-  modelName: 'User', // We need to choose the model name
+  sequelize,
+  modelName: 'user',
 });
+
+sequelize.sync();
+
+// User.sync({ force: true }).then(() => (
+//   // Now the `users` table in the database corresponds to the model definition
+//   User.create({
+//     firstName: 'John',
+//     lastName: 'Hancock',
+//     email: 'hi@hello.com',
+//     password: 'starwars',
+//   })
+// ));
