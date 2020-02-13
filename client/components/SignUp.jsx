@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,12 +20,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {' © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://github.com/pfaithmtan">
         Faith Tan
       </Link>
       {' '}
@@ -69,10 +69,10 @@ export default function SignUpSide() {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
-    amount: '',
+    firstName: '',
+    lastName: '',
+    email: '',
     password: '',
-    weight: '',
-    weightRange: '',
     showPassword: false,
   });
 
@@ -86,6 +86,18 @@ export default function SignUpSide() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios.post('/api/users', values)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -112,6 +124,7 @@ export default function SignUpSide() {
               id="firstName"
               label="First Name"
               autoFocus
+              onChange={handleChange('firstName')}
             />
 
             <TextField
@@ -123,6 +136,7 @@ export default function SignUpSide() {
               label="Last Name"
               name="lastName"
               autoComplete="lname"
+              onChange={handleChange('lastName')}
             />
 
             <TextField
@@ -135,7 +149,9 @@ export default function SignUpSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleChange('email')}
             />
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -146,10 +162,11 @@ export default function SignUpSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleChange('password')}
             />
 
             <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Password *</InputLabel>
+              <InputLabel>Password *</InputLabel>
               <OutlinedInput
                 // margin="none"
                 required
@@ -171,18 +188,18 @@ export default function SignUpSide() {
                 )}
                 labelWidth={85}
               />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
             </FormControl>
-
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>
