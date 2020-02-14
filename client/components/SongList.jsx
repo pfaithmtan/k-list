@@ -114,11 +114,13 @@ export default function SongList() {
       </form>
       <List className={classes.root}>
         {songs.map((value) => {
-          const labelId = `checkbox-list-label-${value}`;
+          const labelId = `checkbox-list-label-${value.id}`;
+          const songTitle = value.title;
+          const songArtist = value.artist;
           console.log('value:', value);
 
           return (
-            <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
+            <ListItem key={songTitle} role={undefined} dense button onClick={handleToggle(value)}>
               <ListItemIcon>
                 <Checkbox
                   edge="start"
@@ -128,7 +130,7 @@ export default function SongList() {
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`Song ${value + 1}`} />
+              <ListItemText id={labelId} primary={`Song ${value.id}: ${songTitle} by ${songArtist}`} />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="comments">
                   <DeleteIcon />
