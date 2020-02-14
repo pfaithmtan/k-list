@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -24,6 +25,18 @@ export default function SongList() {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios.post('/api/users/songs', values)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
@@ -46,6 +59,7 @@ export default function SongList() {
           variant="contained"
           color="primary"
           className={classes.submit}
+          onClick={handleSubmit}
         >
           Add Song!
         </Button>
