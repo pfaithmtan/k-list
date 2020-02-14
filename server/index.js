@@ -38,6 +38,8 @@ app.get('/api/users/me',
     res.json({ id: req.user.id, email: req.user.email });
   });
 
+app.post('/api/users/songs', controller.addSongs);
+
 app.get('/api/users/songs', controller.getSongs);
 
 app.get('*', (req, res) => {
