@@ -14,9 +14,7 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
-class User extends Model { }
-
-User.init({
+const User = sequelize.define('user', {
   firstName: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -38,8 +36,23 @@ User.init({
   modelName: 'user',
 });
 
+const Song = sequelize.define('song', {
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  artist: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+}, {
+  sequelize,
+  modelName: 'user',
+});
+
 sequelize.sync();
 
 module.exports = {
   User,
+  Song,
 };
