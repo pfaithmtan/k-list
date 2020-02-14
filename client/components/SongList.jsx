@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,11 +29,27 @@ const useStyles = makeStyles((theme) => ({
 export default function SongList() {
   const classes = useStyles();
 
-  const [checked, setChecked] = React.useState([0]);
-  const [values, setValues] = React.useState({
+  const [checked, setChecked] = useState([0]);
+  const [values, setValues] = useState({
     title: '',
     artist: '',
   });
+  const [songs, setSongs] = useState([]);
+
+  const getSongs = () => {
+    axios.get('/api/users/songs')
+      .then((data) => {
+        console.log(data);
+        setSongs(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getSongs();
+  }, []);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -97,8 +113,9 @@ export default function SongList() {
         </div>
       </form>
       <List className={classes.root}>
-        {[0, 1, 2, 3].map((value) => {
+        {songs.map((value) => {
           const labelId = `checkbox-list-label-${value}`;
+          console.log('value:', value);
 
           return (
             <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
