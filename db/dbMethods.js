@@ -15,10 +15,10 @@ const createUser = (req, res) => {
     password,
   })
     .then((data) => {
-      res.status(200).send(`Successfully saved ${data} in db!`);
+      res.status(200).send(`Saved ${data} in db!`);
     })
     .catch((error) => {
-      res.status(500).send(`Error saving user to db: ${error}`);
+      res.status(500).send(error);
     });
 };
 
@@ -27,10 +27,10 @@ const findUserById = (req, res) => {
 
   db.User.findOne({ where: { id } })
     .then((data) => {
-      res.status(200).send(`Successfully found data: ${data}`);
+      res.status(200).send(data);
     })
     .catch((error) => {
-      res.status(500).send(`Error finding user by id: ${error}`);
+      res.status(500).send(error);
     });
 };
 
@@ -39,10 +39,10 @@ const verifyUser = (req, res) => {
 
   db.User.findOne({ where: { email } })
     .then((data) => {
-      res.status(200).send(`User confirmed via email: ${data}`);
+      res.status(200).send(data);
     })
     .catch((error) => {
-      res.status(500).send(`Error verifying user: ${error}`);
+      res.status(500).send(error);
     });
 };
 
@@ -57,17 +57,18 @@ const addSongs = (req, res) => {
       res.status(200).send(`Added ${data} to list!`);
     })
     .catch((error) => {
-      res.status(500).send(`Error adding song: ${error}`);
+      res.status(500).send(error);
     });
 };
 
 const getSongs = (req, res) => {
-  db.Song.findAll()
+  db.Song.findAll({ raw: true })
     .then((data) => {
-      res.status(200).send(`Here's the list of songs: ${data}`);
+      console.log(data);
+      res.status(200).send(data);
     })
     .catch((error) => {
-      res.status(500).send(`Error fetching songs: ${error}`);
+      res.status(500).send(error);
     });
 };
 
