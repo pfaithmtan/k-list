@@ -46,8 +46,21 @@ const verifyUser = (req, res) => {
     });
 };
 
+const getSongs = (req, res) => {
+  db.Song.findAll()
+    .then((data) => {
+      console.log(data);
+      res.status(200).send(data);
+    })
+    .catch((error) => {
+      console.log('error:', error);
+      res.status(500).send(error);
+    });
+};
+
 module.exports = {
   createUser,
   findUserById,
   verifyUser,
+  getSongs,
 };
