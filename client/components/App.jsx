@@ -4,6 +4,7 @@ import HomePage from './HomePage';
 import SignUp from './SignUp';
 import Login from './Login';
 import UserPage from './UserPage';
+import SongList from './SongList';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/signUp" component={SignUp} />
         <Route path="/logIn" component={Login} />
         <Route path="/userPage" component={UserPage} />
+        <Route path="/songList" component={SongList} />
       </Switch>
     </div>
   );
