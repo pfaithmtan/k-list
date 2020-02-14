@@ -46,6 +46,21 @@ const verifyUser = (req, res) => {
     });
 };
 
+const addSongs = (req, res) => {
+  const { title, artist } = req.body;
+
+  db.Song.create({
+    title,
+    artist,
+  })
+    .then((data) => {
+      res.status(200).send(`Added ${data} to list!`);
+    })
+    .catch((error) => {
+      res.status(500).send(`Error adding song: ${error}`);
+    });
+};
+
 const getSongs = (req, res) => {
   db.Song.findAll()
     .then((data) => {
@@ -60,5 +75,6 @@ module.exports = {
   createUser,
   findUserById,
   verifyUser,
+  addSongs,
   getSongs,
 };
