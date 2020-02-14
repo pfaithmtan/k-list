@@ -15,6 +15,15 @@ const useStyles = makeStyles((theme) => ({
 export default function SongList() {
   const classes = useStyles();
 
+  const [values, setValues] = React.useState({
+    title: '',
+    artist: '',
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
@@ -23,12 +32,14 @@ export default function SongList() {
           id="outlined-required"
           label="Title"
           variant="outlined"
+          onChange={handleChange('title')}
         />
         <TextField
           required
           id="outlined-required"
           label="Artist"
           variant="outlined"
+          onChange={handleChange('artist')}
         />
         <Button
           type="submit"
