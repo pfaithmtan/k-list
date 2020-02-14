@@ -27,6 +27,7 @@ export default function SongList() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setValues({ title: '', artist: '' });
 
     axios.post('/api/users/songs', values)
       .then((data) => {
@@ -45,6 +46,7 @@ export default function SongList() {
           id="outlined-required"
           label="Title"
           variant="outlined"
+          value={values.title}
           onChange={handleChange('title')}
         />
         <TextField
@@ -52,6 +54,7 @@ export default function SongList() {
           id="outlined-required"
           label="Artist"
           variant="outlined"
+          value={values.artist}
           onChange={handleChange('artist')}
         />
         <Button
