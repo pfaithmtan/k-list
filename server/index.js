@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const morgan = require('morgan');
@@ -12,25 +13,48 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 
+app.use(session({ secret: 'cats' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 passport.use(new LocalStrategy(
   { usernameField: 'email' },
   (email, password, done) => {
     controller.findUserByEmail(email)
       .then((user) => {
+        console.log(user);
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }
-        if (!user.validPassword(password)) {
+        if (user.dataValues.password !== password) {
           return done(null, false, { message: 'Incorrect password.' });
         }
         return done(null, user);
       })
-      .catch((error) => {
-        return done(error);
-      });
+      .catch((error) => done(error));
   },
 ));
+
+passport.serializeUser((user, done) => {
+  done(null, user.email);
+});
+
+passport.deserializeUser((id, done) => {
+  controller.findUserByEmail(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((error) => {
+      done(error);
+    });
+});
+
+app.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/userPage',
+    failureRedirect: '/login',
+  }));
 
 app.post('/api/users', controller.createUser);
 
