@@ -65,7 +65,7 @@ export default function LogIn() {
     event.preventDefault();
     setValues({ email: '', password: '' });
 
-    axios.post('/login', values)
+    axios.post('/api/login', values)
       .then((data) => {
         console.log(data);
         window.location = data.request.responseURL;

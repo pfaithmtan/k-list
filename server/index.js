@@ -50,7 +50,7 @@ passport.deserializeUser((email, done) => {
     });
 });
 
-app.post('/login',
+app.post('/api/login',
   passport.authenticate('local', {
     successRedirect: '/userPage',
     failureRedirect: '/login',
