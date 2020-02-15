@@ -17,7 +17,6 @@ app.use(session({ secret: 'cats' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 passport.use(new LocalStrategy(
   { usernameField: 'email' },
   (email, password, done) => {
@@ -56,11 +55,20 @@ app.post('/api/login',
     failureRedirect: '/login',
   }));
 
+app.delete('/api/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
+});
+
 app.post('/api/users', controller.createUser);
 
 app.post('/api/users/songs', controller.addSongs);
 
 app.get('/api/users/songs', controller.getSongs);
+
+app.get('/test', (req, res) => {
+  res.send(req.user);
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
