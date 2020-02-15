@@ -75,6 +75,7 @@ export default function SongList() {
     axios.post('/api/users/songs', values)
       .then((data) => {
         console.log(data);
+        getSongs();
       })
       .catch((error) => {
         console.log(error);
