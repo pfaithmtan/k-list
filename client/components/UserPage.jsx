@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
@@ -42,13 +44,37 @@ const useStyles = makeStyles((theme) => ({
 export default function StickyFooter() {
   const classes = useStyles();
 
+  const [logout, setLogout] = useState(false);
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    setLogout(true);
+
+    axios.get('/api/logout')
+      .then((data) => {
+        console.log(data);
+        window.location = data.request.responseURL;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Album layout
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -57,7 +83,7 @@ export default function StickyFooter() {
           K List baby!
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          {'Get turnt'}<br />
+          Get turnt
         </Typography>
         <Typography variant="body1">List of songs go here!</Typography>
       </Container>
