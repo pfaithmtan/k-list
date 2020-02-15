@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link as ReactRouterLink } from 'react-router-dom';
+import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -47,8 +49,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function LogIn() {
   const classes = useStyles();
+
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setValues({ email: '', password: '' });
+
+    axios.post('/login', values)
+      .then((data) => {
+        console.log(data);
+        window.location = data.request.responseURL;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,33 +85,10 @@ export default function SignUp() {
           </Link>
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up for a new account
+          Log in to your account
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -96,6 +98,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleChange('email')}
               />
             </Grid>
             <Grid item xs={12}>
@@ -108,6 +111,7 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleChange('password')}
               />
             </Grid>
             <Grid item xs={12}>
@@ -123,13 +127,14 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
-            Sign Up
+            Log In
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="#" variant="body2">
-                Already have an account? Sign in
+                Don't have an account? Sign up!
               </Link>
             </Grid>
           </Grid>
