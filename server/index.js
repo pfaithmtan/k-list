@@ -40,8 +40,8 @@ passport.serializeUser((user, done) => {
   done(null, user.email);
 });
 
-passport.deserializeUser((id, done) => {
-  controller.findUserByEmail(id)
+passport.deserializeUser((email, done) => {
+  controller.findUserByEmail(email)
     .then((user) => {
       done(null, user);
     })
