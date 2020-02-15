@@ -22,6 +22,8 @@ const createUser = (req, res) => {
     });
 };
 
+const findUserByEmail = (email) => db.User.findOne({ where: { email } });
+
 const findUserById = (req, res) => {
   const { id } = req.body;
 
@@ -78,4 +80,5 @@ module.exports = {
   verifyUser,
   addSongs,
   getSongs,
+  findUserByEmail,
 };
