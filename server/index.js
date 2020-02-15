@@ -55,7 +55,7 @@ app.post('/api/login',
     failureRedirect: '/login',
   }));
 
-app.delete('/api/logout', (req, res) => {
+app.get('/api/logout', (req, res) => {
   req.logout();
   res.redirect('/login');
 });
