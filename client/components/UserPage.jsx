@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -45,6 +45,7 @@ export default function StickyFooter() {
   const classes = useStyles();
 
   const [logout, setLogout] = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
 
   const handleLogout = (event) => {
     event.preventDefault();
@@ -59,6 +60,33 @@ export default function StickyFooter() {
         console.log(error);
       });
   };
+
+  const userLoggedIn = () => {
+    axios.get('/test')
+      .then((data) => {
+        if (data.data) {
+          console.log(data);
+          console.log('You\'re logged in!');
+          setPageLoaded(true);
+        } else {
+          console.log('Not logged in');
+          window.location = 'http://localhost:3000/';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    userLoggedIn();
+  }, []);
+
+  if (!pageLoaded) {
+    return (
+      <div />
+    );
+  }
 
   return (
     <div className={classes.root}>
