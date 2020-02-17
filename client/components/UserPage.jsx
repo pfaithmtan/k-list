@@ -114,9 +114,8 @@ export default function StickyFooter() {
         <Typography variant="h5" component="h2" gutterBottom>
           Get turnt
         </Typography>
-        <Typography variant="body1">List of songs go here!</Typography>
+        <SongList />
       </Container>
-      <SongList />
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body1">Footer goes here lol</Typography>
