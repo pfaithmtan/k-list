@@ -15,7 +15,7 @@ const createUser = (req, res) => {
     password,
   })
     .then((data) => {
-      res.status(200).send(`Saved ${data} in db!`);
+      res.status(200).send(data);
     })
     .catch((error) => {
       res.status(500).send(error);
