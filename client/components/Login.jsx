@@ -133,9 +133,9 @@ export default function LogIn() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <ReactRouterLink to="/signUp" variant="body2">
                 Don't have an account? Sign up!
-              </Link>
+              </ReactRouterLink>
             </Grid>
           </Grid>
         </form>
