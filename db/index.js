@@ -48,7 +48,29 @@ const Song = sequelize.define('song', {
   },
 }, {
   sequelize,
-  modelName: 'user',
+  modelName: 'song',
+});
+
+const UserSong = sequelize.define('user_song', {
+  userId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id',
+    },
+  },
+  songId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'songs',
+      key: 'id',
+    },
+  },
+}, {
+  sequelize,
+  modelName: 'user_song',
 });
 
 sequelize.sync();
@@ -56,4 +78,5 @@ sequelize.sync();
 module.exports = {
   User,
   Song,
+  UserSong,
 };
