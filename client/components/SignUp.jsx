@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as ReactRouterLink } from 'react-router-dom';
 import axios from 'axios';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
@@ -20,14 +21,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-function Copyright() {
+function DevelopedBy() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {' © '}
+      {' 𝄞 DevelopedBy '}
       <Link color="inherit" href="https://github.com/pfaithmtan">
         Faith Tan
       </Link>
-      {' '}
+      {' 𝄢 '}
       {new Date().getFullYear()}
       .
     </Typography>
@@ -213,13 +214,13 @@ export default function SignUpSide() {
             </Button>
             <Grid container justify="center">
               <Grid item>
-                <Link href="#" variant="body2">
+                <ReactRouterLink to="/login" variant="body2">
                   Already have an account? Log In!
-                </Link>
+                </ReactRouterLink>
               </Grid>
             </Grid>
             <Box mt={5}>
-              <Copyright />
+              <DevelopedBy />
             </Box>
           </form>
         </div>
