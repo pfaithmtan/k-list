@@ -8,11 +8,12 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import SongList from './SongList';
 
-function Copyright() {
+function DevelopedBy() {
   return (
     <Typography variant="body2" color="textSecondary">
-      {'Copyright © '}
+      {' 𝄞 Developed by '}
       <Link color="inherit" href="https://github.com/pfaithmtan">
         Faith Tan
       </Link>
@@ -115,10 +116,11 @@ export default function StickyFooter() {
         </Typography>
         <Typography variant="body1">List of songs go here!</Typography>
       </Container>
+      <SongList />
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body1">Footer goes here lol</Typography>
-          <Copyright />
+          <DevelopedBy />
         </Container>
       </footer>
     </div>
