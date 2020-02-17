@@ -121,7 +121,7 @@ export default function SongList() {
           console.log('value:', value);
 
           return (
-            <ListItem key={songTitle} role={undefined} dense button onClick={handleToggle(value)}>
+            <ListItem key={labelId} role={undefined} dense button onClick={handleToggle(value)}>
               <ListItemIcon>
                 <Checkbox
                   edge="start"
