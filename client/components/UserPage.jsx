@@ -17,7 +17,7 @@ function DevelopedBy() {
       <Link color="inherit" href="https://github.com/pfaithmtan">
         Faith Tan
       </Link>
-      {' '}
+      {' 𝄢 '}
       {new Date().getFullYear()}
       .
     </Typography>
