@@ -24,30 +24,6 @@ const createUser = (req, res) => {
 
 const findUserByEmail = (email) => db.User.findOne({ where: { email } });
 
-const findUserById = (req, res) => {
-  const { id } = req.body;
-
-  db.User.findOne({ where: { id } })
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-};
-
-const verifyUser = (req, res) => {
-  const { email } = req.body;
-
-  db.User.findOne({ where: { email } })
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-};
-
 const addSongs = (req, res) => {
   const { title, artist } = req.body;
 
@@ -92,8 +68,6 @@ const getSongs = (req, res) => {
 
 module.exports = {
   createUser,
-  findUserById,
-  verifyUser,
   addSongs,
   getSongs,
   findUserByEmail,
