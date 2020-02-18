@@ -56,7 +56,7 @@ const addSongs = (req, res) => {
     artist,
   })
     .then((data) => {
-      res.status(200).send(`Added ${data} to list!`);
+      res.status(200).send(data);
     })
     .catch((error) => {
       res.status(500).send(error);
@@ -64,12 +64,28 @@ const addSongs = (req, res) => {
 };
 
 const getSongs = (req, res) => {
-  db.Song.findAll({ raw: true })
+  const { id } = req.user.dataValues;
+
+  // const query = await sequelize.query(
+  //   `SELECT * FROM songs
+  //   INNER JOIN user_songs
+  //   ON songs.id = user_songs.song_id
+  //   WHERE user_songs.user_id = songs.id`
+  //   );
+
+  db.Song.findAll({
+    include: [{
+      model: db.UserSong,
+      where: { user_id: id },
+      required: true,
+    }],
+  })
     .then((data) => {
       console.log(data);
       res.status(200).send(data);
     })
     .catch((error) => {
+      console.log(error);
       res.status(500).send(error);
     });
 };
