@@ -8,12 +8,14 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import SongList from './SongList';
 import SearchBar from './SearchBar';
 
 function DevelopedBy() {
   return (
-    <Typography variant="body2" color="textSecondary">
+    <Typography align="center" variant="body2" color="textSecondary">
       {' 𝄞 Developed by '}
       <Link color="inherit" href="https://github.com/pfaithmtan">
         Faith Tan
@@ -48,6 +50,10 @@ export default function StickyFooter() {
 
   const [logout, setLogout] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    firstName: '',
+    lastName: '',
+  });
 
   const handleLogout = (event) => {
     event.preventDefault();
@@ -70,6 +76,10 @@ export default function StickyFooter() {
           console.log(data);
           console.log('You\'re logged in!');
           setPageLoaded(true);
+          setUserInfo({
+            firstName: data.data.firstName,
+            lastName: data.data.lastName,
+          })
         } else {
           console.log('Not logged in');
           window.location = 'http://localhost:3000/';
@@ -109,11 +119,11 @@ export default function StickyFooter() {
         </Toolbar>
       </AppBar>
       <Container component="main" className={classes.main} maxWidth="sm">
-        <Typography variant="h2" component="h1" gutterBottom>
-          K List baby!
+        <Typography align="center" variant="h2" component="h1" gutterBottom>
+          {`${userInfo.firstName}'s K List!`}
         </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
-          Get turnt
+        <Typography align="center" variant="h5" component="h2" gutterBottom>
+          Add songs and start singing!
         </Typography>
         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
           <SearchBar />
@@ -122,7 +132,15 @@ export default function StickyFooter() {
       </Container>
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-          <Typography variant="body1">Footer goes here lol</Typography>
+          <Typography align="center" variant="body1">
+            Shameless plug:
+            <Link href="https://www.linkedin.com/in/pfaithmtan/">
+              <LinkedInIcon />
+            </Link>
+            <Link href="https://github.com/pfaithmtan">
+              <GitHubIcon />
+            </Link>
+          </Typography>
           <DevelopedBy />
         </Container>
       </footer>
