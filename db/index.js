@@ -49,6 +49,7 @@ const Song = sequelize.define('song', {
 }, {
   sequelize,
   modelName: 'song',
+  timestamps: false,
 });
 
 const UserSong = sequelize.define('user_song', {
