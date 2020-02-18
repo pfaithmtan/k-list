@@ -96,6 +96,19 @@ export default function SongList() {
       });
   };
 
+  const addSongToPlaylist = (event) => {
+    console.log('event:', event.target);
+
+    axios.post('/api/users/songs', { song_id: event.target.id })
+      .then((data) => {
+        console.log(data);
+        getUserSongs();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       {/* <form className={classes.form} noValidate autoComplete="off">
@@ -163,10 +176,10 @@ export default function SongList() {
           console.log('value:', value);
 
           return (
-            <ListItem key={labelId} role={undefined} dense button onClick={handleToggle(value)}>
+            <ListItem key={labelId} role={undefined} dense button>
               <ListItemText id={labelId} primary={`Song ${value.id}: ${songTitle} by ${songArtist}`} />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="comments">
+              <ListItemSecondaryAction id={value.id} onClick={addSongToPlaylist} style={{ cursor: 'pointer' }}>
+                <IconButton edge="end" aria-label="comments" style={{ pointerEvents: 'none' }}>
                   <PlaylistAddIcon />
                 </IconButton>
               </ListItemSecondaryAction>
