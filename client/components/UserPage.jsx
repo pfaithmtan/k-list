@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import SongList from './SongList';
+import SearchBar from './SearchBar';
 
 function DevelopedBy() {
   return (
@@ -114,6 +115,9 @@ export default function StickyFooter() {
         <Typography variant="h5" component="h2" gutterBottom>
           Get turnt
         </Typography>
+        <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+          <SearchBar />
+        </div>
         <SongList />
       </Container>
       <footer className={classes.footer}>
