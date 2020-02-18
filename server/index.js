@@ -62,7 +62,7 @@ app.get('/api/logout', (req, res) => {
 
 app.post('/api/users', controller.createUser);
 
-app.post('/api/users/songs', controller.addSongs);
+app.post('/api/users/songs', controller.addUserSongs);
 
 app.get('/api/users/songs', controller.getUserSongs);
 
