@@ -66,6 +66,8 @@ app.post('/api/users/songs', controller.addSongs);
 
 app.get('/api/users/songs', controller.getUserSongs);
 
+app.get('/api/songs', controller.getAllSongs);
+
 app.get('/test', (req, res) => {
   res.send(req.user);
 });
