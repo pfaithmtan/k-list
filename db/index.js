@@ -52,7 +52,7 @@ const Song = sequelize.define('song', {
 });
 
 const UserSong = sequelize.define('user_song', {
-  userId: {
+  user_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
@@ -60,7 +60,7 @@ const UserSong = sequelize.define('user_song', {
       key: 'id',
     },
   },
-  songId: {
+  song_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
@@ -71,7 +71,11 @@ const UserSong = sequelize.define('user_song', {
 }, {
   sequelize,
   modelName: 'user_song',
+  timestamps: false,
 });
+
+Song.hasMany(UserSong, { foreignKey: 'song_id' });
+UserSong.belongsTo(Song, { foreignKey: 'song_id' });
 
 sequelize.sync();
 
