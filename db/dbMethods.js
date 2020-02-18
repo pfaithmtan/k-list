@@ -55,6 +55,9 @@ const getUserSongs = (req, res) => {
       where: { user_id: id },
       required: true,
     }],
+    order: [[{
+      model: db.UserSong,
+    }, 'id', 'ASC']],
   })
     .then((data) => {
       console.log(data);
@@ -67,12 +70,32 @@ const getUserSongs = (req, res) => {
 };
 
 const getAllSongs = (req, res) => {
-  db.Song.findAll()
+  db.Song.findAll({
+    limit: 10,
+  })
     .then((data) => {
       console.log(data);
       res.status(200).send(data);
     })
     .catch((error) => {
+      res.status(500).send(error);
+    });
+};
+
+const addUserSongs = (req, res) => {
+  const user_id = req.user.dataValues.id;
+  const { song_id } = req.body;
+
+  db.UserSong.create({
+    user_id,
+    song_id,
+  })
+    .then((data) => {
+      console.log(data);
+      res.status(200).send(data);
+    })
+    .catch((error) => {
+      console.log(error);
       res.status(500).send(error);
     });
 };
@@ -83,4 +106,5 @@ module.exports = {
   addSongs,
   getUserSongs,
   getAllSongs,
+  addUserSongs,
 };
