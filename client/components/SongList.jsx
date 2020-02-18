@@ -11,6 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,13 +35,25 @@ export default function SongList() {
     title: '',
     artist: '',
   });
-  const [songs, setSongs] = useState([]);
+  const [userSongs, setUserSongs] = useState([]);
+  const [allSongs, setAllSongs] = useState([]);
 
-  const getSongs = () => {
+  const getUserSongs = () => {
     axios.get('/api/users/songs')
       .then((data) => {
         console.log(data);
-        setSongs(data.data);
+        setUserSongs(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getAllSongs = () => {
+    axios.get('/api/songs')
+      .then((data) => {
+        console.log(data);
+        setAllSongs(data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -48,7 +61,8 @@ export default function SongList() {
   };
 
   useEffect(() => {
-    getSongs();
+    getUserSongs();
+    getAllSongs();
   }, []);
 
   const handleToggle = (value) => () => {
@@ -75,7 +89,7 @@ export default function SongList() {
     axios.post('/api/users/songs', values)
       .then((data) => {
         console.log(data);
-        getSongs();
+        getUserSongs();
       })
       .catch((error) => {
         console.log(error);
@@ -83,8 +97,8 @@ export default function SongList() {
   };
 
   return (
-    <div>
-      <form className={classes.form} noValidate autoComplete="off">
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
+      {/* <form className={classes.form} noValidate autoComplete="off">
         <div>
           <TextField
             required
@@ -112,9 +126,9 @@ export default function SongList() {
             Add Song!
           </Button>
         </div>
-      </form>
+      </form> */}
       <List className={classes.root}>
-        {songs.map((value) => {
+        {userSongs.map((value) => {
           const labelId = `checkbox-list-label-${value.id}`;
           const songTitle = value.title;
           const songArtist = value.artist;
@@ -135,6 +149,25 @@ export default function SongList() {
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="comments">
                   <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
+      </List>
+      <List className={classes.root}>
+        {allSongs.map((value) => {
+          const labelId = `id-${value.id}`;
+          const songTitle = value.title;
+          const songArtist = value.artist;
+          console.log('value:', value);
+
+          return (
+            <ListItem key={labelId} role={undefined} dense button onClick={handleToggle(value)}>
+              <ListItemText id={labelId} primary={`Song ${value.id}: ${songTitle} by ${songArtist}`} />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="comments">
+                  <PlaylistAddIcon />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
