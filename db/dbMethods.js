@@ -39,7 +39,7 @@ const addSongs = (req, res) => {
     });
 };
 
-const getSongs = (req, res) => {
+const getUserSongs = (req, res) => {
   const { id } = req.user.dataValues;
 
   // const query = await sequelize.query(
@@ -69,6 +69,6 @@ const getSongs = (req, res) => {
 module.exports = {
   createUser,
   addSongs,
-  getSongs,
+  getUserSongs,
   findUserByEmail,
 };
