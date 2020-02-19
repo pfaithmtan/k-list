@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import axios from 'axios';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +9,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -19,8 +17,8 @@ function DevelopedBy() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {' 𝄞 DevelopedBy '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Faith
+      <Link color="inherit" href="https://github.com/pfaithmtan">
+        Faith Tan
       </Link>
       {' 𝄢 '}
       {new Date().getFullYear()}
@@ -79,11 +77,9 @@ export default function LogIn() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <Link href="/">
-            <LockOutlinedIcon />
-          </Link>
-        </Avatar>
+        <Link href="/">
+          <img src="https://cdn0.iconfinder.com/data/icons/love-and-romance-vol-3/48/105-512.png" alt="" height="40px" width="40px" />
+        </Link>
         <Typography component="h1" variant="h5">
           Log in to your account
         </Typography>
@@ -116,8 +112,8 @@ export default function LogIn() {
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
               />
             </Grid>
           </Grid>
