@@ -2,7 +2,6 @@ import React from 'react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 function DevelopedBy() {
   return (
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(8, 0, 6),
+    color: 'black',
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -47,22 +49,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
     backgroundColor: theme.palette.background.default,
   },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
   footer: {
     // backgroundColor: theme.palette.background.default,
     padding: theme.spacing(6),
-    backgroundColor:
-      theme.palette.type === 'dark' ? theme.palette.background.paper : theme.palette.background.paper,
+    backgroundColor: '#3f51b5',
+    // theme.palette.type === 'dark' ? theme.palette.background.paper : theme.palette.background.paper,
+    color: 'black',
   },
 }));
 
@@ -74,23 +66,25 @@ export default function HomePage() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <CameraIcon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <img src="https://cdn0.iconfinder.com/data/icons/love-and-romance-vol-3/48/105-512.png" alt="" height="40px" width="40px" />
+            <Typography variant="h6" color="inherit" noWrap>
+              K List
+            </Typography>
+          </div>
         </Toolbar>
       </AppBar>
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Home Page of App
+            <Typography component="h1" variant="h2" align="center" color="" gutterBottom>
+              Top 10 Songs from 2010-2019
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              Something short and leading about the collection below—its contents, the creator, etc.
-              Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-              entirely.
+            <Typography variant="h5" align="center" color="" paragraph>
+              <div style={{ color: 'dimgrey' }}>
+                Create a karaoke list from the hits of the decade.
+              </div>
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
@@ -112,17 +106,26 @@ export default function HomePage() {
             </div>
           </Container>
         </div>
-        <Container className={classes.cardGrid} maxWidth="md">
-          <img src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fe3%2F22%2Fdb%2Fe322db3ad04ed97760e5fa1b238803ed.png&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F508414245419688919%2F&tbnid=mz7OrQDKpC3wdM&vet=12ahUKEwjV99v0l8rnAhUOtJ4KHQc0DJ0QMygdegQIARBm..i&docid=d3BR_iEa6fvvbM&w=256&h=500&q=dalmatian%20101&ved=2ahUKEwjV99v0l8rnAhUOtJ4KHQc0DJ0QMygdegQIARBm" alt="background" />
-        </Container>
+        <div style={{ backgroundColor: 'lightgrey' }}>
+          <Container className={classes.cardGrid} maxWidth="md">
+            <img src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fe3%2F22%2Fdb%2Fe322db3ad04ed97760e5fa1b238803ed.png&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F508414245419688919%2F&tbnid=mz7OrQDKpC3wdM&vet=12ahUKEwjV99v0l8rnAhUOtJ4KHQc0DJ0QMygdegQIARBm..i&docid=d3BR_iEa6fvvbM&w=256&h=500&q=dalmatian%20101&ved=2ahUKEwjV99v0l8rnAhUOtJ4KHQc0DJ0QMygdegQIARBm" alt="" />
+          </Container>
+        </div>
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Something here to give the footer a purpose!
+        <Typography variant="subtitle1" align="center" color="" component="p">
+          <div style={{ color: '#efecec' }}>
+            <Link href="https://www.linkedin.com/in/pfaithmtan/">
+              <LinkedInIcon style={{ color: 'white' }} />
+            </Link>
+            <Link href="https://github.com/pfaithmtan">
+              <GitHubIcon style={{ color: 'white' }} />
+            </Link>
+          </div>
         </Typography>
         <DevelopedBy />
       </footer>
