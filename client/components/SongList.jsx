@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -27,21 +26,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SongList() {
+export default function SongList({ query }) {
   const classes = useStyles();
 
   const [checked, setChecked] = useState([0]);
-  const [values, setValues] = useState({
-    title: '',
-    artist: '',
-  });
   const [userSongs, setUserSongs] = useState([]);
-  const [allSongs, setAllSongs] = useState([]);
+  const [filteredSongs, setFilteredSongs] = useState([]);
 
   const getUserSongs = () => {
     axios.get('/api/users/songs')
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setUserSongs(data.data);
       })
       .catch((error) => {
@@ -49,11 +44,10 @@ export default function SongList() {
       });
   };
 
-  const getAllSongs = () => {
-    axios.get('/api/songs')
+  const getFilteredSongs = () => {
+    axios.get(`/api/songs?query=${query}`)
       .then((data) => {
-        console.log(data);
-        setAllSongs(data.data);
+        setFilteredSongs(data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -62,8 +56,8 @@ export default function SongList() {
 
   useEffect(() => {
     getUserSongs();
-    getAllSongs();
-  }, []);
+    getFilteredSongs();
+  }, [query]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -74,26 +68,9 @@ export default function SongList() {
     } else {
       newChecked.splice(currentIndex, 1);
     }
+    console.log('newchecked:', newChecked);
 
     setChecked(newChecked);
-  };
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setValues({ title: '', artist: '' });
-
-    axios.post('/api/users/songs', values)
-      .then((data) => {
-        console.log(data);
-        getUserSongs();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   const addSongToPlaylist = (event) => {
@@ -101,7 +78,6 @@ export default function SongList() {
 
     axios.post('/api/users/songs', { song_id: event.target.id })
       .then((data) => {
-        console.log(data);
         getUserSongs();
       })
       .catch((error) => {
@@ -111,41 +87,12 @@ export default function SongList() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      {/* <form className={classes.form} noValidate autoComplete="off">
-        <div>
-          <TextField
-            required
-            id="outlined-required"
-            label="Title"
-            variant="outlined"
-            value={values.title}
-            onChange={handleChange('title')}
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Artist"
-            variant="outlined"
-            value={values.artist}
-            onChange={handleChange('artist')}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleSubmit}
-          >
-            Add Song!
-          </Button>
-        </div>
-      </form> */}
       <List className={classes.root}>
         {userSongs.map((value) => {
           const labelId = `checkbox-list-label-${value.id}`;
           const songTitle = value.title;
           const songArtist = value.artist;
-          console.log('value:', value);
+          // console.log('value:', value);
 
           return (
             <ListItem key={labelId} role={undefined} dense button onClick={handleToggle(value)}>
@@ -169,15 +116,15 @@ export default function SongList() {
         })}
       </List>
       <List className={classes.root}>
-        {allSongs.map((value) => {
+        {filteredSongs.map((value) => {
           const labelId = `id-${value.id}`;
           const songTitle = value.title;
           const songArtist = value.artist;
-          console.log('value:', value);
+          // console.log('value:', value);
 
           return (
             <ListItem key={labelId} role={undefined} dense button>
-              <ListItemText id={labelId} primary={`Song ${value.id}: ${songTitle} by ${songArtist}`} />
+              <ListItemText id={labelId} primary={`${songTitle} - ${songArtist}`} />
               <ListItemSecondaryAction id={value.id} onClick={addSongToPlaylist} style={{ cursor: 'pointer' }}>
                 <IconButton edge="end" aria-label="comments" style={{ pointerEvents: 'none' }}>
                   <PlaylistAddIcon />
@@ -190,3 +137,11 @@ export default function SongList() {
     </div>
   );
 }
+
+SongList.propTypes = {
+  query: PropTypes.string,
+};
+
+SongList.defaultProps = {
+  query: '',
+};
