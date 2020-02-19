@@ -81,6 +81,7 @@ UserSong.belongsTo(Song, { foreignKey: 'song_id' });
 sequelize.sync();
 
 module.exports = {
+  Sequelize,
   User,
   Song,
   UserSong,
