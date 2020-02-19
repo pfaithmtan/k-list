@@ -100,6 +100,31 @@ const addUserSongs = (req, res) => {
     });
 };
 
+const searchSong = (req, res) => {
+  db.Song.findAll({
+    where: {
+      [db.Sequelize.Op.or]: [
+        {
+          title: {
+            [db.Sequelize.Op.iLike]: `%${req.query.query}%`,
+          },
+        },
+        {
+          artist: {
+            [db.Sequelize.Op.iLike]: `%${req.query.query}%`,
+          },
+        },
+      ],
+    },
+  })
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+};
+
 module.exports = {
   createUser,
   findUserByEmail,
@@ -107,4 +132,5 @@ module.exports = {
   getUserSongs,
   getAllSongs,
   addUserSongs,
+  searchSong,
 };
