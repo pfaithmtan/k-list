@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import React from 'react';
+import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,25 +61,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchBar() {
+export default function SearchBar({ updateQuery }) {
   const classes = useStyles();
 
-  const [allSongs, setAllSongs] = useState([]);
-
-  const getAllSongs = () => {
-    axios.get('/api/songs')
-      .then((data) => {
-        console.log(data);
-        setAllSongs(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleChange = (event) => {
+    updateQuery(event.target.value);
   };
-
-  useEffect(() => {
-    getAllSongs();
-  }, []);
 
   return (
     <div className={classes.root}>
@@ -92,15 +76,14 @@ export default function SearchBar() {
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            aria-label="open drawer"
           >
-            <MenuIcon />
+            <img src="https://cdn0.iconfinder.com/data/icons/love-and-romance-vol-3/48/105-512.png" alt="" height="40px" width="40px" />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             Welcome!
           </Typography>
-          <div className={classes.search}>
-            {/* <div className={classes.searchIcon}>
+          <div className={classes.search} style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
@@ -110,19 +93,7 @@ export default function SearchBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-            /> */}
-            <Autocomplete
-              id="songs-box"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              options={allSongs}
-              getOptionLabel={(option) => option.title}
-              style={{ width: 300 }}
-              renderInput={(params) => (
-                <TextField {...params} label="Search a song!" variant="outlined" fullWidth />
-              )}
+              onChange={handleChange}
             />
           </div>
         </Toolbar>
@@ -130,3 +101,7 @@ export default function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  updateQuery: PropTypes.func.isRequired,
+};
