@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 function DevelopedBy() {
   return (
@@ -145,6 +147,14 @@ export default function LogIn() {
               </Grid>
             </Grid>
             <Box mt={5}>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Link href="https://www.linkedin.com/in/pfaithmtan/">
+                  <LinkedInIcon />
+                </Link>
+                <Link href="https://github.com/pfaithmtan">
+                  <GitHubIcon />
+                </Link>
+              </div>
               <DevelopedBy />
             </Box>
           </form>
