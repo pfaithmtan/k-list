@@ -78,10 +78,10 @@ export default function HomePage() {
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="" gutterBottom>
+            <Typography component="h1" variant="h2" align="center" gutterBottom>
               Top 10 Songs from 2010-2019
             </Typography>
-            <Typography variant="h5" align="center" color="" paragraph>
+            <Typography variant="h5" align="center" paragraph>
               <div style={{ color: 'dimgrey' }}>
                 Create a karaoke list from the hits of the decade.
               </div>
@@ -117,7 +117,7 @@ export default function HomePage() {
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
-        <Typography variant="subtitle1" align="center" color="" component="p">
+        <Typography variant="subtitle1" align="center" component="span">
           <div style={{ color: '#efecec' }}>
             <Link href="https://www.linkedin.com/in/pfaithmtan/">
               <LinkedInIcon style={{ color: 'white' }} />
