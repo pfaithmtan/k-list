@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -54,6 +55,11 @@ export default function StickyFooter() {
     firstName: '',
     lastName: '',
   });
+  const [query, setQuery] = useState('');
+
+  const updateQuery = _.debounce((searchQuery) => {
+    setQuery(searchQuery);
+  }, 300);
 
   const handleLogout = (event) => {
     event.preventDefault();
@@ -79,7 +85,7 @@ export default function StickyFooter() {
           setUserInfo({
             firstName: data.data.firstName,
             lastName: data.data.lastName,
-          })
+          });
         } else {
           console.log('Not logged in');
           window.location = 'http://localhost:3000/';
@@ -126,9 +132,9 @@ export default function StickyFooter() {
           Add songs and start singing!
         </Typography>
         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-          <SearchBar />
+          <SearchBar updateQuery={updateQuery} />
         </div>
-        <SongList />
+        <SongList query={query} />
       </Container>
       <footer className={classes.footer}>
         <Container maxWidth="sm">
