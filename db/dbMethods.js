@@ -60,11 +60,11 @@ const getUserSongs = (req, res) => {
     }, 'id', 'ASC']],
   })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.status(200).send(data);
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       res.status(500).send(error);
     });
 };
@@ -74,7 +74,7 @@ const getAllSongs = (req, res) => {
     limit: 10,
   })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.status(200).send(data);
     })
     .catch((error) => {
@@ -91,11 +91,11 @@ const addUserSongs = (req, res) => {
     song_id,
   })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.status(200).send(data);
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       res.status(500).send(error);
     });
 };
@@ -125,6 +125,28 @@ const searchSong = (req, res) => {
     });
 };
 
+const deleteSong = (req, res) => {
+  // console.log('req:', req.query);
+  // console.log('req.user_id:', req.user.dataValues.id);
+  const user_id = req.user.dataValues.id;
+  let { song_id } = req.query;
+
+  db.UserSong.destroy({
+    where: {
+      user_id,
+      song_id,
+    },
+  })
+    .then((data) => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    });
+};
+
 module.exports = {
   createUser,
   findUserByEmail,
@@ -133,4 +155,5 @@ module.exports = {
   getAllSongs,
   addUserSongs,
   searchSong,
+  deleteSong,
 };
