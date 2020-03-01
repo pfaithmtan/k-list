@@ -70,6 +70,8 @@ app.get('/api/users/songs', controller.getUserSongs);
 
 app.get('/api/songs', controller.searchSong);
 
+app.delete('/api/users/songs', controller.deleteSong);
+
 app.get('/test', (req, res) => {
   res.send(req.user);
 });
