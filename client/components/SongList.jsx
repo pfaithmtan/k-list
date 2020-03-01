@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SongList({ query }) {
   const classes = useStyles();
 
-  const [checked, setChecked] = useState([0]);
+  const [checked, setChecked] = useState([]);
   const [userSongs, setUserSongs] = useState([]);
   const [filteredSongs, setFilteredSongs] = useState([]);
 
@@ -74,11 +74,24 @@ export default function SongList({ query }) {
   };
 
   const addSongToPlaylist = (event) => {
-    console.log('event:', event.target);
+    console.log('event:', event.target.id);
 
     axios.post('/api/users/songs', { song_id: event.target.id })
       .then((data) => {
         getUserSongs();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const deleteSong = (event) => {
+    axios.delete('/api/users/songs', {
+      params: { song_id: event.target.id },
+    })
+      .then((data) => {
+        getUserSongs();
+        console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -105,9 +118,9 @@ export default function SongList({ query }) {
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`Song ${value.id}: ${songTitle} by ${songArtist}`} />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="comments">
+              <ListItemText id={value.id} primary={`Song ${value.id}: ${songTitle} by ${songArtist}`} />
+              <ListItemSecondaryAction id={value.id} onClick={deleteSong} style={{ cursor: 'pointer' }}>
+                <IconButton id={value.id} edge="end" aria-label="comments" style={{ pointerEvents: 'none' }}>
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>
