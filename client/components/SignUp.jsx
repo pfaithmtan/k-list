@@ -152,24 +152,10 @@ export default function SignUpSide() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={handleChange('password')}
-              />
-            </Grid>
-            <Grid item xs={12}>
               <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
                 <InputLabel>Password *</InputLabel>
                 <OutlinedInput
-                  // margin="none"
+                  margin="none"
                   required
                   fullWidth
                   type={values.showPassword ? 'text' : 'password'}
@@ -189,10 +175,12 @@ export default function SignUpSide() {
                   )}
                   labelWidth={85}
                 />
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+                <Grid>
+                  <FormControlLabel
+                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                    label="I want to receive inspiration, marketing promotions and updates via email."
+                  />
+                </Grid>
               </FormControl>
             </Grid>
           </Grid>
@@ -208,8 +196,9 @@ export default function SignUpSide() {
           </Button>
           <Grid container justify="center">
             <Grid item>
+              {'Already have an account?  '}
               <ReactRouterLink to="/login" variant="body2">
-                Already have an account? Log In!
+                Log In!
               </ReactRouterLink>
             </Grid>
           </Grid>
