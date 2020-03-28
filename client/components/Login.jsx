@@ -141,8 +141,9 @@ export default function LogIn() {
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
+                {'Don\'t have an account? '}
                 <ReactRouterLink to="/signUp" variant="body2">
-                  Don&apos;t have an account? Sign up!
+                  Sign up!
                 </ReactRouterLink>
               </Grid>
             </Grid>
