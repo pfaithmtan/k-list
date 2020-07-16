@@ -4,6 +4,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const morgan = require('morgan');
+const bcrypt = require('bcrypt');
 const controller = require('../db/dbMethods');
 
 const app = express();
@@ -22,14 +23,21 @@ passport.use(new LocalStrategy(
   (email, password, done) => {
     controller.findUserByEmail(email)
       .then((user) => {
-        console.log(user);
-        if (!user) {
-          return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (user.dataValues.password !== password) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, user);
+        bcrypt.compare(password, user.dataValues.password)
+          .then((result) => {
+            if (result) {
+              return done(null, user.dataValues);
+            }
+
+            if (!user) {
+              return done(null, false, { message: 'Incorrect username.' });
+            }
+            if (user.dataValues.password !== password) {
+              return done(null, false, { message: 'Incorrect password.' });
+            }
+
+            return done(null, false, { message: 'Invalid credentials.' });
+          });
       })
       .catch((error) => done(error));
   },
