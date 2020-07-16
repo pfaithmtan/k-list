@@ -1,4 +1,7 @@
+const bcrypt = require('bcrypt');
 const db = require('./index');
+
+const saltRounds = 10;
 
 const createUser = (req, res) => {
   const {
@@ -8,18 +11,20 @@ const createUser = (req, res) => {
     password,
   } = req.body;
 
-  db.User.create({
-    firstName,
-    lastName,
-    email,
-    password,
-  })
-    .then((data) => {
-      res.status(200).send(data);
+  bcrypt.hash(password, saltRounds).then((hash) => {
+    db.User.create({
+      firstName,
+      lastName,
+      email,
+      password: hash,
     })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  });
 };
 
 const findUserByEmail = (email) => db.User.findOne({ where: { email } });
