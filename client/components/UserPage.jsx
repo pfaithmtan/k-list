@@ -67,7 +67,6 @@ export default function StickyFooter() {
 
     axios.get('/api/logout')
       .then((data) => {
-        console.log(data);
         window.location = data.request.responseURL;
       })
       .catch((error) => {
@@ -79,15 +78,12 @@ export default function StickyFooter() {
     axios.get('/test')
       .then((data) => {
         if (data.data) {
-          console.log(data);
-          console.log('You\'re logged in!');
           setPageLoaded(true);
           setUserInfo({
             firstName: data.data.firstName,
             lastName: data.data.lastName,
           });
         } else {
-          console.log('Not logged in');
           window.location = 'http://localhost:3000/';
         }
       })

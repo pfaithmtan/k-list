@@ -74,7 +74,6 @@ export default function LogIn() {
 
     axios.post('/api/login', values)
       .then((data) => {
-        console.log(data);
         window.location = data.request.responseURL;
       })
       .catch((error) => {

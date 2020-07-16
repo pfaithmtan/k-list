@@ -91,7 +91,6 @@ export default function SongList({ query }) {
     })
       .then((data) => {
         getUserSongs();
-        console.log(data);
       })
       .catch((error) => {
         console.log(error);

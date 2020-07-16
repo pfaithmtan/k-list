@@ -81,7 +81,6 @@ export default function SignUpSide() {
 
     axios.post('/api/users', values)
       .then((data) => {
-        console.log(data);
         axios.post('/api/login', values)
           .then((loginData) => {
             console.log(loginData);
