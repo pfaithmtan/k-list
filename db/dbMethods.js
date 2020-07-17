@@ -11,6 +11,10 @@ const createUser = (req, res) => {
     password,
   } = req.body;
 
+  if (password.length < 8) {
+    return;
+  }
+
   bcrypt.hash(password, saltRounds).then((hash) => {
     db.User.create({
       firstName,
